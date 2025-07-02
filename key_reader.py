@@ -3,6 +3,7 @@
 """
 import time
 from RPi import GPIO  # pylint: disable=E0401
+import pygame
 # from gpiozero import Button  # pylint: disable=E0401
 # from gpiozero.pins.pigpio import PiGPIOFactory  # pylint: disable=E0401
 
@@ -11,24 +12,26 @@ GPIO.setmode(GPIO.BCM)
 
 class KeyReader:
     def __init__(self, key_pin):
-        self.key = key_pin["key"]
+        self.key = str(key_pin["key"])
         self.pin = key_pin["pin"]
         GPIO.setup(self.pin, GPIO.OUT)
 
     def press(self, try_key):
         if try_key != self.key:
             return
+        print("read", pygame.key.name(int(try_key)))
         GPIO.output(self.pin, True)
 
     def release(self, try_key):
         if try_key != self.key:
             return
+        print("read", pygame.key.name(int(try_key)))
         GPIO.output(self.pin, False)
 
 
 class KeyReader2:
     def __init__(self, key_pin, check_pin):
-        self.key = key_pin["key"]
+        self.key = str(key_pin["key"])
         self.pin = key_pin["pin"]
         GPIO.setup(self.pin, GPIO.OUT)
         self.check_pin = check_pin
@@ -38,6 +41,7 @@ class KeyReader2:
     def press(self, try_key):
         if try_key != self.key:
             return
+        print("read", pygame.key.name(int(try_key)))
         GPIO.output(self.pin, True)
         while GPIO.input(self.check_pin) == GPIO.LOW:
             time.sleep(0.1)

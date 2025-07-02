@@ -28,14 +28,15 @@ def run_pygame():
                 running = False
 
             if event.type == pygame.KEYDOWN:
+                key_str = str(event.key)
                 for data in [
                                 setting.L_FW, setting.L_BACK, setting.R_FW,
                                 setting.R_BACK, setting.AT_L, setting.AT_R,
                                 setting.AT_UP, setting.AT_DOWN, setting.AT_SET,
                                 setting.CAMERA_L, setting.CAMERA_R,
                                 setting.CAMERA_INIT,]:
-                    if data["key"] == event.key:
-                        print("OK", pygame.key.name(data["key"]), data["pin"])
+                    if str(data["key"]) == key_str:
+                        print("OK", pygame.key.name(int(key_str)), data["pin"])
                         break
                 else:
                     print("unknown", pygame.key.name(event.key), event.key)

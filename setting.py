@@ -14,9 +14,9 @@ AT_UP   = {"key": pygame.K_KP8, "pin": 16}
 AT_DOWN = {"key": pygame.K_KP2, "pin": 12}
 AT_SET  = {"key": pygame.K_KP0, "pin": 24, "check_pin": 23}
 
-CAMERA_L    = {"key": pygame.K_LEFT , "pin": 18}
-CAMERA_R    = {"key": pygame.K_RIGHT, "pin": 15}
-CAMERA_INIT = {"key": pygame.K_DOWN , "pin": 14}
+CAMERA_L    = {"key": pygame.K_LEFT , "pin": 22}
+CAMERA_R    = {"key": pygame.K_RIGHT, "pin": 27}
+CAMERA_INIT = {"key": pygame.K_DOWN , "pin": 17}
 
 AT_SET_OK_PIN = 0
 

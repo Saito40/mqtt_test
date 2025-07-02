@@ -13,16 +13,16 @@ client_release_id = f'python-mqtt-{random.randint(0, 1000)}'
 running = True
 
 if __name__ == '__main__':
-    client_press = Subscriber(
+    press_subscriber = Subscriber(
         client_press_id,
         setting.BROKER,
         setting.PORT)
-    client_release = Subscriber(
+    release_subscriber = Subscriber(
         client_release_id,
         setting.BROKER,
         setting.PORT)
-    client_press.loop_start()
-    client_release.loop_start()
+    press_subscriber.loop_start()
+    release_subscriber.loop_start()
 
     l_fw = KeyReader(setting.L_FW)
     l_back = KeyReader(setting.L_BACK)
@@ -68,8 +68,8 @@ if __name__ == '__main__':
         camera_r.release(msg)
         camera_init.release(msg)
 
-    client_press.subscribe(setting.PRESS_TOPIC, press)
-    client_press.subscribe(setting.RELEASE_TOPIC, release)
+    press_subscriber.client.subscribe(setting.PRESS_TOPIC, press)
+    press_subscriber.client.subscribe(setting.RELEASE_TOPIC, release)
 
     while running:
         pass

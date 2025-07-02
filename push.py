@@ -28,7 +28,7 @@ def connect_mqtt():
 
 
 def publish(client, topic, msg):
-    result = client.publish(topic, msg)
+    result = client.publish(topic, msg, 1)
     # result: [0, 1]
     status = result[0]
     if status == 0:
@@ -74,13 +74,13 @@ def run_pygame(client):
             if event.type == pygame.KEYDOWN:
                 key_name = pygame.key.name(event.key)
                 pressed.add(key_name)
-                publish(client, setting.PRESS_TOPIC, key_name)
+                publish(client, setting.PRESS_TOPIC, event.key)
                 change_key = True
 
             elif event.type == pygame.KEYUP:
                 key_name = pygame.key.name(event.key)
                 pressed.discard(key_name)
-                publish(client, setting.RELEASE_TOPIC, key_name)
+                publish(client, setting.RELEASE_TOPIC, event.key)
                 change_key = True
 
         # 表示更新するか判定

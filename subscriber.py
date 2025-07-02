@@ -18,7 +18,7 @@ class Subscriber:
             print(f"Received `{decoded}` from `{msg.topic}` topic")
             func(decoded)
 
-        self.client.subscribe(topic)
+        self.client.subscribe(topic, 1)
         self.client.on_message = on_message
 
     @staticmethod
