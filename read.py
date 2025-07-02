@@ -53,7 +53,6 @@ if __name__ == '__main__':
         at_r.press(msg)
         at_up.press(msg)
         at_down.press(msg)
-        at_set.press(msg)
         camera_l.press(msg)
         camera_r.press(msg)
         camera_init.press(msg)

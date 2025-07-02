@@ -35,7 +35,7 @@ class KeyReader2:
         self.pin = key_pin["pin"]
         GPIO.setup(self.pin, GPIO.OUT)
         self.check_pin = check_pin
-        GPIO.setup(check_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(check_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         self.running = False
 
     def press(self, try_key):
@@ -43,10 +43,12 @@ class KeyReader2:
             return
         if try_key != self.key:
             return
+        if GPIO.input(self.check_pin) == GPIO.LOW:
+            return
         print("read", pygame.key.name(int(try_key)))
         self.running = True
         GPIO.output(self.pin, True)
-        while GPIO.input(self.check_pin) == GPIO.LOW:
+        while GPIO.input(self.check_pin) == GPIO.HIGH:
             time.sleep(0.1)
         GPIO.output(self.pin, False)
         self.running = False
