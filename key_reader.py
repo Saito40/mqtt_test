@@ -19,13 +19,13 @@ class KeyReader:
     def press(self, try_key):
         if try_key != self.key:
             return
-        print("read", pygame.key.name(int(try_key)))
+        print("press", pygame.key.name(int(try_key)), self.pin)
         GPIO.output(self.pin, True)
 
     def release(self, try_key):
         if try_key != self.key:
             return
-        print("read", pygame.key.name(int(try_key)))
+        print("release", pygame.key.name(int(try_key)), self.pin)
         GPIO.output(self.pin, False)
 
 
@@ -39,13 +39,14 @@ class KeyReader2:
         self.running = False
 
     def press(self, try_key):
+        if self.running:
+            return
         if try_key != self.key:
             return
         print("read", pygame.key.name(int(try_key)))
+        self.running = True
         GPIO.output(self.pin, True)
         while GPIO.input(self.check_pin) == GPIO.LOW:
             time.sleep(0.1)
         GPIO.output(self.pin, False)
-
-    def release(self, try_key):
-        pass
+        self.running = False

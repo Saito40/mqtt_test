@@ -22,3 +22,6 @@ AT_SET_OK_PIN = 0
 
 PRESS_TOPIC = "test/pressed"
 RELEASE_TOPIC = "test/released"
+AT_SET_TOPIC = "test/at_set"
+
+EXIT_KEY = pygame.K_ESCAPE

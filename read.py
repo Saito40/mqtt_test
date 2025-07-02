@@ -10,6 +10,7 @@ import setting
 
 client_press_id = f'python-mqtt-{random.randint(0, 1000)}'
 client_release_id = f'python-mqtt-{random.randint(0, 1000)}'
+client_at_set_id = f'python-mqtt-{random.randint(0, 1000)}'
 running = True
 
 if __name__ == '__main__':
@@ -21,8 +22,13 @@ if __name__ == '__main__':
         client_release_id,
         setting.BROKER,
         setting.PORT)
-    press_subscriber.loop_start()
-    release_subscriber.loop_start()
+    at_set_subscriber = Subscriber(
+        client_at_set_id,
+        setting.BROKER,
+        setting.PORT)
+    press_subscriber.client.loop_start()
+    release_subscriber.client.loop_start()
+    at_set_subscriber.client.loop_start()
 
     l_fw = KeyReader(setting.L_FW)
     l_back = KeyReader(setting.L_BACK)
@@ -51,7 +57,7 @@ if __name__ == '__main__':
         camera_l.press(msg)
         camera_r.press(msg)
         camera_init.press(msg)
-        if msg == "ESCAPE":
+        if msg == str(setting.EXIT_KEY):
             running = False
 
     def release(msg):
@@ -63,15 +69,21 @@ if __name__ == '__main__':
         at_r.release(msg)
         at_up.release(msg)
         at_down.release(msg)
-        at_set.release(msg)
         camera_l.release(msg)
         camera_r.release(msg)
         camera_init.release(msg)
 
-    press_subscriber.client.subscribe(setting.PRESS_TOPIC, press)
-    press_subscriber.client.subscribe(setting.RELEASE_TOPIC, release)
+    def at_set_func(msg):
+        at_set.press(msg)
 
-    while running:
+    press_subscriber.subscribe(setting.PRESS_TOPIC, press)
+    release_subscriber.subscribe(setting.RELEASE_TOPIC, release)
+    at_set_subscriber.subscribe(setting.AT_SET_TOPIC, at_set_func)
+    try:
+        while running:
+            pass
+    except:
         pass
 
     GPIO.cleanup()
+    print("CLEANUP")

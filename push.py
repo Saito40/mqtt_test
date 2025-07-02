@@ -75,6 +75,8 @@ def run_pygame(client):
                 key_name = pygame.key.name(event.key)
                 pressed.add(key_name)
                 publish(client, setting.PRESS_TOPIC, event.key)
+                if event.key == setting.AT_SET["key"]:
+                    publish(client, setting.AT_SET_TOPIC, event.key)
                 change_key = True
 
             elif event.type == pygame.KEYUP:
