@@ -1,4 +1,5 @@
 import pygame
+from datetime import timedelta
 
 BROKER = '192.168.11.8'
 PORT = 1883
@@ -14,14 +15,28 @@ AT_UP   = {"key": pygame.K_KP8, "pin": 16}
 AT_DOWN = {"key": pygame.K_KP2, "pin": 12}
 AT_SET  = {"key": pygame.K_KP0, "pin": 24, "check_pin": 23}
 
-CAMERA_L    = {"key": pygame.K_LEFT , "pin": 22}
-CAMERA_R    = {"key": pygame.K_RIGHT, "pin": 27}
-CAMERA_INIT = {"key": pygame.K_DOWN , "pin": 17}
+# 12, 13, 18, 19
+# 12 = 18, 13 = 19
+CAMERA = {
+    "key_l": pygame.K_LEFT,
+    "key_r": pygame.K_RIGHT,
+    "key_init": pygame.K_DOWN,
+    "pin": 18
+}
 
 AT_SET_OK_PIN = 0
+
+C_SERVO = {
+    "min_deg": -90.,
+    "max_deg": -90.,
+    "init_deg": 0.,
+    "step_deg": 0.5
+}
 
 PRESS_TOPIC = "test/pressed"
 RELEASE_TOPIC = "test/released"
 AT_SET_TOPIC = "test/at_set"
 
-EXIT_KEY = pygame.K_ESCAPE
+EMERGENCY_COUNT = 3
+EMERGENCY_SPAN = timedelta.seconds(2)
+EMERGENCY_KEY = pygame.K_ESCAPE
