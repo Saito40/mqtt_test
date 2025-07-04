@@ -1,3 +1,4 @@
+from RPi import GPIO  # pylint: disable=E0401
 from gpiozero import AngularServo
 from gpiozero.pins.pigpio import PiGPIOFactory
 import threading
@@ -5,6 +6,7 @@ import time
 
 import setting
 
+GPIO.setmode(GPIO.BCM)
 sleep_step = 0.1
 
 
@@ -14,9 +16,9 @@ class ServoControl:
     R = "R"
 
     def __init__(self, key_l, key_r, key_init, pin):
-        self.key_l = key_l
-        self.key_r = key_r
-        self.key_init = key_init
+        self.key_l = str(key_l)
+        self.key_r = str(key_r)
+        self.key_init = str(key_init)
         self.pin = pin
         self.status = ServoControl.N
         factory = PiGPIOFactory()
@@ -62,7 +64,7 @@ class ServoControl:
             self.status = ServoControl.R
 
     def stop_left(self, try_key):
-        if self.key_init != try_key:
+        if self.key_l != try_key:
             return
         if self.status == ServoControl.N:
             self.status = ServoControl.R
@@ -93,7 +95,7 @@ class ServoControl:
                 # self.status == ServoControl.N
                 pass
             if self.count % 10 == 0:
-                print(self.a_servo.angle)
+                print(self.a_servo.angle, self.status)
             time.sleep(sleep_step)
 
     def cleanup(self):

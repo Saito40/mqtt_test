@@ -28,9 +28,9 @@ AT_SET_OK_PIN = 0
 
 C_SERVO = {
     "min_deg": -90.,
-    "max_deg": -90.,
+    "max_deg": 90.,
     "init_deg": 0.,
-    "step_deg": 0.5
+    "step_deg": 5
 }
 
 PRESS_TOPIC = "test/pressed"
@@ -38,5 +38,5 @@ RELEASE_TOPIC = "test/released"
 AT_SET_TOPIC = "test/at_set"
 
 EMERGENCY_COUNT = 3
-EMERGENCY_SPAN = timedelta.seconds(2)
+EMERGENCY_SPAN = 1
 EMERGENCY_KEY = pygame.K_ESCAPE
