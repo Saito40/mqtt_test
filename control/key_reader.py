@@ -15,6 +15,7 @@ class KeyReader:
         self.key = str(key_pin["key"])
         self.pin = key_pin["pin"]
         GPIO.setup(self.pin, GPIO.OUT)
+        GPIO.output(self.pin, False)
 
     def press(self, try_key):
         if try_key != self.key:
@@ -34,6 +35,7 @@ class KeyReader2:
         self.key = str(key_pin["key"])
         self.pin = key_pin["pin"]
         GPIO.setup(self.pin, GPIO.OUT)
+        GPIO.output(self.pin, False)
         self.check_pin = check_pin
         GPIO.setup(check_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         self.running = False
